@@ -24,7 +24,7 @@
     height: 100%;
     padding: 10px;
     margin-left: 10px;
-    width: 98%;
+    width: 96%;
     margin-right: 10px;
     padding-left: 10px;
   }
@@ -32,12 +32,12 @@
     height: 100%;
   }
   
-  .context{
+ /* .context{
     display: none;
   }
   .quick{
     display: block;
-  }
+  }*/
   
   .note-btnz {
     visibility: hidden;
