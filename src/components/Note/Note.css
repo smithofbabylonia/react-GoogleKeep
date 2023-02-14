@@ -2,8 +2,9 @@
 .notes {
     display: flex;
     justify-content: center;
+    align-content: flex-start;
     width: 94%;
-    height: 570px; height: calc(100%-144px);
+    height: 570px; /*height: calc(100% - 144px);*/
     overflow-y: scroll;
     margin-left: 6%;
     flex-wrap: wrap;

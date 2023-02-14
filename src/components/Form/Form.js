@@ -8,6 +8,8 @@ function Form(props){
     const [display, setDisplay] = useState(props.displays);
     const [quicks, setQuicks] = useState({display:"block"});
     const [contexts, setContexts] = useState({display:"none"});
+    const [textContent, setTextContent] = useState("");//0 is title and 1 is text
+    const [titleContent, setTitleContent] = useState("");//0 is title and 1 is text
     function formClicked(){
       props.toggleModal(toggleOn);
       if (toggleOn) {
@@ -25,14 +27,26 @@ function Form(props){
     
     function closeBtn(event){
       event.preventDefault();
-      console.log("Button instead",event.target);
       toggleOn=false;
+      let runiq = event.timeStamp.toString(16);
+      props.updateNotes({id:runiq,title:titleContent,text:textContent});
+      console.log(titleContent,textContent);
+      formClicked();
+      setTitleContent("");
+      setTextContent("");
+    }
+
+    function textChangeLogger(event){
+      setTextContent(event.target.value);
+    }
+    function titleChangeLogger(event){
+      setTitleContent(event.target.value);
     }
     return (
       <div className="form-container inactive-form" onClick={formClicked}>
-        <form style={display}>
-            <input type="text" className="note-title" placeholder="Title" style={contexts}/>
-            <input type="text" className="note-title note-text" placeholder="Take a note..." />
+        <form style={display} onSubmit={closeBtn}>
+            <input type="text" className="note-title" placeholder="Title" style={contexts} onChange={titleChangeLogger} value={titleContent}/>
+            <input type="text" className="note-title note-text" placeholder="Take a note..." onChange={textChangeLogger} value={textContent}/>
           <div className="form-actions">
             <div className="icons">
             <div className="tooltip" style={quicks}>
@@ -80,7 +94,7 @@ function Form(props){
               <span className="tooltip-text">Redo</span>
             </div>
           </div>
-            <button type="button" className="close-btn" onClick={closeBtn} style={contexts}>Close</button>
+            <button type="submit" className="close-btn" style={contexts}>Close</button>
             
           </div>
         </form>
