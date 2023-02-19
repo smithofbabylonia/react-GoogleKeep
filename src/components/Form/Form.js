@@ -1,39 +1,37 @@
 import './Form.css';
 import React,{useState} from 'react';
+import { uid } from 'uid';
 
-var toggleOn = true;
 
 function Form(props){
-    //
-    const [display, setDisplay] = useState(props.displays);
-    const [quicks, setQuicks] = useState({display:"block"});
-    const [contexts, setContexts] = useState({display:"none"});
+	//
+	var toggleOn = true;
+    //const [display, setDisplay] = useState(props.displays);
+    const quicks= {display: props.typingState ? 'none' : 'block',};
+    const contexts={display: props.typingState ? 'block' : 'none',};
     const [textContent, setTextContent] = useState("");//0 is title and 1 is text
     const [titleContent, setTitleContent] = useState("");//0 is title and 1 is text
     function formClicked(){
-      props.toggleModal(toggleOn);
-      if (toggleOn) {
-        setDisplay( {display:"block"});
-        setQuicks({display:"none"});
-        setContexts({display:"block"});
-        
-      }else{
-        setDisplay({display:"flex"});
-        setQuicks({display:"block"});
-        setContexts({display:"none"});
-        toggleOn = true;
+		if (!props.typingState) {
+		  props.toggleModal(!props.typingState);
       }
     }
     
     function closeBtn(event){
       event.preventDefault();
-      toggleOn=false;
-      let runiq = event.timeStamp.toString(16);
-      props.updateNotes({id:runiq,title:titleContent,text:textContent});
-      console.log(titleContent,textContent);
+      props.toggleModal(!props.typingState);
+      let runiq = uid(16);
+      if (props.editSubject.length==0) {
+        props.updateNotes({id:runiq,title:titleContent,text:textContent});
+      } else {
+        //search in list and update variables
+        console.log("Now editting");
+      }
+      //console.log(titleContent,textContent);
       formClicked();
       setTitleContent("");
       setTextContent("");
+      props.editt("");
     }
 
     function textChangeLogger(event){
@@ -44,7 +42,7 @@ function Form(props){
     }
     return (
       <div className="form-container inactive-form" onClick={formClicked}>
-        <form style={display} onSubmit={closeBtn}>
+        <form style={props.displays} onSubmit={closeBtn}>
             <input type="text" className="note-title" placeholder="Title" style={contexts} onChange={titleChangeLogger} value={titleContent}/>
             <input type="text" className="note-title note-text" placeholder="Take a note..." onChange={textChangeLogger} value={textContent}/>
           <div className="form-actions">

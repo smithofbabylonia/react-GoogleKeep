@@ -4,14 +4,11 @@ import './Note.css';
 
 
 function Notes(props){
-    const [notes,updateNotes]=useState(<h1>Nothing to see here!</h1>);
-    
-    /*function populate(){
-      updateNotes(props.notes.map(note=>{return <Note key={note.id} id={note.id} title={note.title} text={note.text}/>}));
-    }*/
+    const [notes,updateNotes]=useState(props.emptyNotes);
+  
     return(
 		<div className='notes'>
-			{props.notes.map(note=>{return <Note key={note.id} id={note.id} title={note.title} text={note.text}/>})}
+			{props.notes.map(note=>{return <Note key={note.id} id={note.id} title={note.title} text={note.text} archive={props.archiveNote} clickNote={props.clickNote}/>})}
 		</div>
     );
 }
