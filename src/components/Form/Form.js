@@ -1,16 +1,13 @@
 import './Form.css';
-import React,{useState} from 'react';
 import { uid } from 'uid';
 
 
 function Form(props){
-	//
-	var toggleOn = true;
+    const {titleContent, textContent, setTitleContent, setTextContent} = props;
     //const [display, setDisplay] = useState(props.displays);
     const quicks= {display: props.typingState ? 'none' : 'block',};
     const contexts={display: props.typingState ? 'block' : 'none',};
-    const [textContent, setTextContent] = useState("");//0 is title and 1 is text
-    const [titleContent, setTitleContent] = useState("");//0 is title and 1 is text
+
     function formClicked(){
 		if (!props.typingState) {
 		  props.toggleModal(!props.typingState);
@@ -21,11 +18,11 @@ function Form(props){
       event.preventDefault();
       props.toggleModal(!props.typingState);
       let runiq = uid(16);
-      if (props.editSubject.length==0) {
-        props.updateNotes({id:runiq,title:titleContent,text:textContent});
+      if (props.editSubject.length===0) {
+        props.updateNotes({id:runiq, title:titleContent, text:textContent});
       } else {
         //search in list and update variables
-        console.log("Now editting");
+        props.editingNote();
       }
       //console.log(titleContent,textContent);
       formClicked();
