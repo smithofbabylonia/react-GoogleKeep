@@ -1,10 +1,15 @@
 import "./Navbar.css";
 
-function Navbar(){
+function Navbar(props){
+
+    function toggle(){
+		props.toggleWidth(!props.sideWidth);
+	}
+
     return (
         <nav>
             <div className="logo-area">
-        <div className="tooltip">
+        <div className="tooltip" onClick={toggle}>
           <span className="material-icons-outlined hover">menu</span>
           <span className="tooltip-text">Main Menu</span>
         </div>

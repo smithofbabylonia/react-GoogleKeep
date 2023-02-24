@@ -3,10 +3,8 @@
     display: flex;
     justify-content: center;
     align-content: flex-start;
-    width: 94%;
     height: 570px; /*height: calc(100% - 144px);*/
     overflow-y: scroll;
-    margin-left: 6%;
     flex-wrap: wrap;
   }
   .note {
@@ -24,10 +22,21 @@
     overflow: hidden;
   }
   .note .text {
-    width: 95%; height: 47%;
+    width: 95%; /*height: 47%;*/
+    max-height: 80px;
     margin: 10px 0 0 10px;
+    white-space: pre-wrap;
     overflow:hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
   }
+
+  /*.note .text:hover {
+    max-height: none;
+    overflow: visible;
+    text-overflow: clip;
+  }*/
+
   .note .note-footer {
     display: flex;
     margin-top: 15px;

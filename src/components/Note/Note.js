@@ -1,10 +1,10 @@
 
 export default function Note(props){
 
-  function deleteThem(){
-    alert("Delete every virus from my system");
-    props.archive(props.id);
-  }
+    function deleteThem(){
+      props.archive(props.id);
+    }
+
     return(
         <div className="note" id={props.id} onClick={props.clickNote}>
           <div className="material-icons check-circle note-btnz">check_circle</div>

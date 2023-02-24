@@ -14,7 +14,7 @@
 .hover:hover {
   background: #f1f3f4;
   color: black;
-  border-radius: 50%;
+  border-radius: 50px;
   cursor: pointer;
 }
 

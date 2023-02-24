@@ -29,7 +29,8 @@
     padding-left: 10px;
   }
   .note-text {
-    height: 100%;
+    resize: none;
+    outline: none;
   }
   
  /* .context{

@@ -7,6 +7,7 @@ function Form(props){
     //const [display, setDisplay] = useState(props.displays);
     const quicks= {display: props.typingState ? 'none' : 'block',};
     const contexts={display: props.typingState ? 'block' : 'none',};
+    const areaHeight = {height: props.typingState ? '70px' : '38.5px'};
 
     function formClicked(){
 		if (!props.typingState) {
@@ -16,7 +17,9 @@ function Form(props){
     
     function closeBtn(event){
       event.preventDefault();
+      //formClicked();
       props.toggleModal(!props.typingState);
+      if(titleContent==="" && textContent==="") return;
       let runiq = uid(16);
       if (props.editSubject.length===0) {
         props.updateNotes({id:runiq, title:titleContent, text:textContent});
@@ -25,7 +28,6 @@ function Form(props){
         props.editingNote();
       }
       //console.log(titleContent,textContent);
-      formClicked();
       setTitleContent("");
       setTextContent("");
       props.editt("");
@@ -41,7 +43,7 @@ function Form(props){
       <div className="form-container inactive-form" onClick={formClicked}>
         <form style={props.displays} onSubmit={closeBtn}>
             <input type="text" className="note-title" placeholder="Title" style={contexts} onChange={titleChangeLogger} value={titleContent}/>
-            <input type="text" className="note-title note-text" placeholder="Take a note..." onChange={textChangeLogger} value={textContent}/>
+            <textarea type="text" style={areaHeight} className="note-title note-text" placeholder="Take a note..." onChange={textChangeLogger} value={textContent}/>
           <div className="form-actions">
             <div className="icons">
             <div className="tooltip" style={quicks}>

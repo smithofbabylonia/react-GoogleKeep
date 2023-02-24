@@ -15,13 +15,13 @@ function App() {
   const [index,setIndex] = useState(null);
   const [textContent, setTextContent] = useState("");//0 is title and 1 is text
   const [titleContent, setTitleContent] = useState("");//0 is title and 1 is text
+  const [sideWidth, toggleWidth] = useState(false);
 
   function updateNotes(newNote){// 
     addNote([...notesList,newNote]);
   }
 
   function editingNote(){
-    console.log(notesList[index].title,notesList[index].text);
     notesList[index].title=titleContent;
     notesList[index].text=textContent;
     setIndex(null);
@@ -29,15 +29,20 @@ function App() {
 
   function excuseModal(){
     changeTyping(!typingState);
+    setTitleContent("");
+    setTextContent("");
+    edit("");
+    setIndex(null);
   }
+
   function clickNote(event){
     if(event.target.classList.contains("small-icon")) return;
     edit(event.currentTarget.id);
-    setIndex(notesList.findIndex((item)=> item.id===event.currentTarget.id));
+    var tempIndex = notesList.findIndex((item)=> item.id===event.currentTarget.id);
+    setIndex(tempIndex);
     changeTyping(!typingState);
-    console.log("Now editting note:",index);
-    setTitleContent(notesList[index].title);
-    setTextContent(notesList[index].text);
+    setTitleContent(notesList[tempIndex].title);
+    setTextContent(notesList[tempIndex].text);
   }
 
   function archiveNote(noteId){
@@ -46,10 +51,10 @@ function App() {
 
   return (
     <div>
-      <Navbar/>
-      <Sidebar/>
+      <Navbar sideWidth={sideWidth} toggleWidth={toggleWidth}/>
+      <Sidebar typingState={typingState} sideWidth={sideWidth}/>
       <Form displays={displays} typingState={typingState} toggleModal={changeTyping} updateNotes={updateNotes} editSubject={editing} editt={edit} notes={notesList} editingNote={editingNote} textContent={textContent} titleContent={titleContent} setTitleContent={setTitleContent} setTextContent={setTextContent}/>
-      <Notes notes={notesList} archiveNote={archiveNote} clickNote={clickNote}/>
+      <Notes notes={notesList} archiveNote={archiveNote} clickNote={clickNote} burger={sideWidth}/>
       <div className='modal' style={modalState} onClick={excuseModal}/>
     </div>
   );
